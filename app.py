@@ -5,9 +5,6 @@ from fastapi.security import OAuth2PasswordRequestForm
 from datetime import datetime
 from datetime import timedelta
 
-from PIL import Image
-from PIL import ImageChops
-
 from check_prime_number import display_prime
 from invert_image_colors import invert_colors
 from user_verification import fake_users_db, UserInDB, fake_hash_password, get_current_user, get_current_active_user, get_user, User
@@ -34,15 +31,6 @@ async def check_if_prime(number: int):
 @app.post("/picture/invert")
 async def invert_image(file: bytes = File(...)):
     return StreamingResponse(invert_colors(file), media_type="image/JPEG")
-
-@app.post("/picture/invert2")
-async def invert_image2():
-    
-    img = Image.open("test.jpg")
-    img.show()
-
-    inv_img = ImageChops.invert(img)
-    inv_img.show()
 
 
 @app.get("/token")
