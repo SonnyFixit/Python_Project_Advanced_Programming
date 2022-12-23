@@ -14,4 +14,11 @@ class LocustTests(HttpUser):
     def primeEndpoint(self):
          self.client.get(f"/prime/{random.choice(self.primeNumbersTest)}")
 
+    @task
+    def invertImageEndpoint(self):
+        rand = random.randint(1, 5)
+        with open(f"../testImages/test{rand}.jpg", "rb") as imageFile:
+            self.client.post(
+                "/picture/invert/", files={"file": ("filename", imageFile, "image/jpeg")})
+
    
